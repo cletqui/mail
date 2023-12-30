@@ -5,7 +5,7 @@ Unveil the mysteries of your emails with `mail` – your go-to detective for dec
 ## Description 📝
 
 "mail" is a static website designed for analyzing email messages to determine their safety. It allows users to upload a `message/rfc822` file or paste mail headers directly.
-The application fetches mail data from the custom API ([api.cybai.re](https://github.com/cletqui/api)) to provide information about the email, including general details, header information (SPF, DKIM, DMARC), data information (raw text, internal links), and details about mail attachments.
+The application parses mail data from the email parser ([postal-mime](https://github.com/postalsys/postal-mime)) to provide information about the email, including general details, header information (SPF, DKIM, DMARC), data information (raw text, internal links), and details about mail attachments.
 
 ## Table of Contents 📑
 
@@ -37,7 +37,7 @@ The application fetches mail data from the custom API ([api.cybai.re](https://gi
   - Alternatively, paste mail headers directly into the provided text area.
 
 - Analysis Results 🧐🎭:
-  - The application fetches data from api.cybai.re to display information about the email.
+  - The application parses data with postal-mime and enrich it to display information about the email.
   - Check the results for general details, header information, data insights, and attachment safety.
 
 ## Roadmap
@@ -50,7 +50,7 @@ The application fetches mail data from the custom API ([api.cybai.re](https://gi
 
 - [ ] Only show the relevant sections and hide the general information (raw data, body structure for example).
 
-- [ ] Handle API errors.
+- [ ] Enhance data parsing and enhancement.
 
 - [ ] Add `.msg` file compatibility.
 
