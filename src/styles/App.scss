@@ -1,0 +1,12 @@
+.App {
+  text-align: left;
+}
+
+.TextInput {
+  width: -moz-available;
+  height: 15vmax;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px;
+  border: 1px solid transparent;
+  resize: vertical;
+}
