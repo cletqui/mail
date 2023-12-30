@@ -1,12 +1,59 @@
 .App {
   text-align: left;
-}
 
-.TextInput {
-  width: -moz-available;
-  height: 15vmax;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px;
-  border: 1px solid transparent;
-  resize: vertical;
+  .Body {
+    .Input {
+      div {
+        margin: 1vmax 0 1vmax 0;
+      }
+
+      .FileInput {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 5vmax;
+        border-radius: 10px;
+        padding: 1vmax 0;
+        border: 1px solid;
+        cursor: pointer;
+
+        input {
+          display: none;
+        }
+      }
+
+      .TextInput {
+        width: -moz-available;
+        height: 15vmax;
+        border-radius: 10px;
+        box-shadow: 0 0 0 1px;
+        border: 1px solid transparent;
+        resize: vertical;
+      }
+
+      .Button {
+        display: flex;
+
+        svg {
+          animation: spin 2s infinite;
+          margin-left: 0.5em;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      }
+    }
+
+    .Output {
+      display: none;
+    }
+  }
 }
