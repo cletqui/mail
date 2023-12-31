@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { FaRegPaste, FaRegFileCode, FaSpinner } from "react-icons/fa6";
 
 import { Radio, FileInput, TextInput, Button } from "../../../components/input";
-import { FaRegPaste, FaRegFileCode, FaSpinner } from "react-icons/fa6";
 
 export const Input = ({ setResult }) => {
   const [data, setData] = useState(null);
@@ -9,6 +9,11 @@ export const Input = ({ setResult }) => {
 
   const handleChange = (event) => {
     setSelectedRadio(event.target.id);
+  };
+
+  const handleClick = () => {
+    console.log(selectedRadio);
+    console.log(data);
   };
 
   return (
@@ -23,7 +28,11 @@ export const Input = ({ setResult }) => {
           handleChange={handleChange}
           checked={selectedRadio === "file"}
         />
-        <FileInput setData={setData} />
+        <FileInput
+          data={data}
+          setData={setData}
+          setSelectedRadio={setSelectedRadio}
+        />
       </div>
 
       <div>
@@ -34,10 +43,14 @@ export const Input = ({ setResult }) => {
           handleChange={handleChange}
           checked={selectedRadio === "text"}
         />
-        <TextInput setData={setData} />
+        <TextInput
+          data={data}
+          setData={setData}
+          setSelectedRadio={setSelectedRadio}
+        />
       </div>
 
-      <Button text="Submit" Icon={FaSpinner} />
+      <Button text="Submit" Icon={FaSpinner} handleClick={handleClick} />
     </div>
   );
 };
