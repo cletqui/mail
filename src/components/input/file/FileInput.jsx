@@ -8,6 +8,12 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
   const inputRef = useRef(null);
   const [inputInfo, setInputInfo] = useState("");
 
+  const setDefaultInputInfo = () => {
+    setInputInfo(
+      data ? `${data.name} (${niceBytes(data.size)}): ${data.type}` : ""
+    );
+  };
+
   const checkInput = (files) => {
     if (files.length > 1) {
       setInputInfo(`Only one file at a time!`);
@@ -27,12 +33,6 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
     inputRef.current.click();
   };
 
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    setData(file);
-    setInputInfo(`${file.name} (${niceBytes(file.size)}): ${file.type}`);
-  };
-
   const handleDragOver = (event) => {
     event.preventDefault();
     const { items } = event.dataTransfer;
@@ -40,9 +40,7 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
   };
 
   const handleDragLeave = () => {
-    setInputInfo(
-      data ? `${data.name} (${niceBytes(data.size)}): ${data.type}` : ""
-    );
+    setDefaultInputInfo();
   };
 
   const handleDrop = (event) => {
@@ -50,10 +48,18 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
     setSelectedRadio("file");
     const { files } = event.dataTransfer;
     if (checkInput(files)) {
-      setData(files[0]);
+      const file = files[0];
+      setData(file);
+      setInputInfo(`${file.name} (${niceBytes(file.size)}): ${file.type}`);
     } else {
-      setInputInfo("");
+      setDefaultInputInfo();
     }
+  };
+
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    setData(file);
+    setInputInfo(`${file.name} (${niceBytes(file.size)}): ${file.type}`);
   };
 
   return (
