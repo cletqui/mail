@@ -1,6 +1,10 @@
 import PostalMime from "postal-mime";
 
 export const parse = async (data) => {
+  if (!data) {
+    return null;
+  }
+
   const parser = new PostalMime();
   const res = await parser.parse(data);
 

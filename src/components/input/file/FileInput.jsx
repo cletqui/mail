@@ -1,28 +1,30 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { FaFileImport } from "react-icons/fa6";
 
 import { niceBytes } from "../../../utils/helpers/print";
 import { validateInputFile } from "../../../utils/helpers/validate";
 
-export const FileInput = ({ data, setData, setSelectedRadio }) => {
+export const FileInput = ({ file, setFile, setSelectedRadio }) => {
   const inputRef = useRef(null);
   const [inputInfo, setInputInfo] = useState("");
 
-  const setDefaultInputInfo = () => {
-    setInputInfo(
-      data ? `${data.name} (${niceBytes(data.size)}): ${data.type}` : ""
-    );
-  };
+  const updateInputInfo = useCallback(
+    (data = file) => {
+      setInputInfo(
+        data ? `${data.name} (${niceBytes(data.size)}): ${data.type}` : ""
+      );
+    },
+    [file]
+  );
 
   const checkInput = (files) => {
     if (files.length > 1) {
       setInputInfo(`Only one file at a time!`);
     } else {
       const file = files[0];
+      const isValid = validateInputFile(file);
       setInputInfo(
-        `File type "${file?.type}" is ${
-          validateInputFile(file) ? "valid" : "invalid"
-        }.`
+        `File type "${file?.type}" is ${isValid ? "valid" : "invalid"}.`
       );
       return validateInputFile(file);
     }
@@ -40,7 +42,7 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
   };
 
   const handleDragLeave = () => {
-    setDefaultInputInfo();
+    updateInputInfo();
   };
 
   const handleDrop = (event) => {
@@ -49,18 +51,21 @@ export const FileInput = ({ data, setData, setSelectedRadio }) => {
     const { files } = event.dataTransfer;
     if (checkInput(files)) {
       const file = files[0];
-      setData(file);
-      setInputInfo(`${file.name} (${niceBytes(file.size)}): ${file.type}`);
+      setFile(file);
+      updateInputInfo(file);
     } else {
-      setDefaultInputInfo();
+      updateInputInfo();
     }
   };
 
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    setData(file);
-    setInputInfo(`${file.name} (${niceBytes(file.size)}): ${file.type}`);
-  };
+  const handleChange = useCallback(
+    (event) => {
+      const file = event.target.files[0];
+      setFile(file);
+      updateInputInfo(file);
+    },
+    [setFile, updateInputInfo]
+  );
 
   return (
     <div

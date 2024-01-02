@@ -5,7 +5,8 @@ import { Radio, FileInput, TextInput, Button } from "../../../components/input";
 import { parse } from "../../../utils/helpers/parse";
 
 export const Input = ({ setResult }) => {
-  const [data, setData] = useState(null);
+  const [file, setFile] = useState(null);
+  const [text, setText] = useState(null);
   const [selectedRadio, setSelectedRadio] = useState("file");
   const [isLoading, setLoading] = useState(false);
 
@@ -13,14 +14,19 @@ export const Input = ({ setResult }) => {
     setSelectedRadio(event.target.id);
   };
 
+  const getData = () => {
+    return selectedRadio === "file" ? file : text;
+  };
+
   const handleClick = async () => {
+    console.log(selectedRadio);
+    const data = getData();
+    console.log(data);
+
     setLoading(true);
     const result = await parse(data);
     setLoading(false);
     setResult(result);
-
-    console.log(selectedRadio);
-    console.log(data);
     console.log(result);
   };
 
@@ -28,34 +34,36 @@ export const Input = ({ setResult }) => {
     <div className="Input">
       <h1>Input</h1>
 
-      <div>
-        <Radio
-          id="file"
-          Icon={FaRegFileCode}
-          message="Select File"
-          handleChange={handleChange}
-          checked={selectedRadio === "file"}
-        />
-        <FileInput
-          data={data}
-          setData={setData}
-          setSelectedRadio={setSelectedRadio}
-        />
-      </div>
+      <div className="InputContainer">
+        <div className="InputContent">
+          <Radio
+            id="file"
+            Icon={FaRegFileCode}
+            message="Select File"
+            handleChange={handleChange}
+            checked={selectedRadio === "file"}
+          />
+          <FileInput
+            file={file}
+            setFile={setFile}
+            setSelectedRadio={setSelectedRadio}
+          />
+        </div>
 
-      <div>
-        <Radio
-          id="text"
-          Icon={FaRegPaste}
-          message="Paste Header"
-          handleChange={handleChange}
-          checked={selectedRadio === "text"}
-        />
-        <TextInput
-          data={data}
-          setData={setData}
-          setSelectedRadio={setSelectedRadio}
-        />
+        <div className="InputContent">
+          <Radio
+            id="text"
+            Icon={FaRegPaste}
+            message="Paste Header"
+            handleChange={handleChange}
+            checked={selectedRadio === "text"}
+          />
+          <TextInput
+            text={text}
+            setText={setText}
+            setSelectedRadio={setSelectedRadio}
+          />
+        </div>
       </div>
 
       <Button

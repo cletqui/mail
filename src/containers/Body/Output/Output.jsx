@@ -1,7 +1,3 @@
 export const Output = ({ result }) => {
-  return (
-    <div className="Output">
-      <h1>Output</h1>
-    </div>
-  );
+  return <div className="Output">{result ? <h1>Output</h1> : null}</div>;
 };

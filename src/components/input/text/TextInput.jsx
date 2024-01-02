@@ -1,15 +1,23 @@
-export const TextInput = ({ data, setData, setSelectedRadio }) => {
-  const handleInput = (event) => {
+import { useCallback } from "react";
+
+export const TextInput = ({ setText, setSelectedRadio }) => {
+  const handleChange = useCallback(
+    (event) => {
+      setText(event.target.value);
+    },
+    [setText]
+  );
+
+  const handleFocus = () => {
     setSelectedRadio("text");
-    setData(event.target.value);
   };
 
   return (
     <textarea
       className="TextInput"
       title="Paste Header "
-      onFocus={handleInput}
-      onChange={handleInput}
-    ></textarea>
+      onChange={handleChange}
+      onFocus={handleFocus}
+    />
   );
 };
