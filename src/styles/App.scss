@@ -10,7 +10,7 @@
 
         .InputContent {
           flex: 1 1 10px;
-          margin: 10px;
+          margin: .69vmax;
         }
 
         @media (max-width: 600px) {
@@ -76,6 +76,39 @@
       }
     }
 
-    .Output {}
+    .Output {
+      .Section {
+        margin-left: .69vmax;
+
+        .Title {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .Footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1.5vmax;
+    padding: 0.5vmax;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 1), 96%, rgba(255, 255, 255, 0));
+
+    div {
+      margin: 5px 10px 0 10px;
+    }
+
+    svg {
+      cursor: pointer;
+      color: black;
+    }
+
+    svg:hover {
+      color: grey;
+    }
   }
 }
