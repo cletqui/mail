@@ -8,6 +8,8 @@ export const parse = async (data) => {
   const parser = new PostalMime();
   const res = await parser.parse(data);
 
+  console.log(res);
+
   const {
     attachments,
     date,
@@ -24,26 +26,58 @@ export const parse = async (data) => {
     id: messageId,
     subject,
     date,
-    importance: "",
-    sensitivity: "",
+    importance: "", // TODO
+    sensitivity: "", // TODO
   };
 
   const participants = {
-    from: { ...from, domain: parseDomainFromAddress(from.address) },
-    to: to.map((obj) => ({
-      ...obj,
-      domain: parseDomainFromAddress(obj.address),
-    })),
+    from: from && { ...from, domain: parseDomainFromAddress(from.address) },
+    to:
+      to &&
+      to.map((obj) => ({
+        ...obj,
+        domain: parseDomainFromAddress(obj.address),
+      })),
   };
+
+  const content = {
+    html,
+    text,
+    links: [], // TODO
+    attachments:
+      attachments &&
+      attachments.map((attachment) => ({
+        ...attachment,
+        size: attachment?.content?.byteLength,
+        threat: false, // TODO
+      })),
+  };
+
+  const domain = {
+    name: "",
+    IP: { v4: [], v6: [] },
+    MX: [],
+    DMARC: {},
+    SPF: {},
+    DKIM: {},
+  }; // TODO
+
+  const received = { delay: "", relayPath: [] }; // TODO
+
+  const security = {
+    threatLevel: "",
+    maliciousLinks: [],
+    maliciousAttachments: [],
+  }; // TODO
 
   return {
     email,
     participants,
-    content: { html, text, attachments }, // { text: "", html: "", links: [], attachments: [ { name: "", size: "", type: "", threat: false, node: {} } ], bodyStructure: "" }
+    content,
     headers: { list: headers }, // { delivery: {}, spfDkim: {}, list: {} }
-    domain: {}, // { name: "", IPAddresses: { IPv4: [], IPv6: [] }, MXRecords: [], DMARCHeader: {}, SPFHeader: {}, DKIMHeader: {} }
-    received: {}, // { delay: "", relayPath: [] }
-    security: {}, // { threatLevel: "", maliciousLinks: [], maliciousAttachments: [] }
+    domain,
+    received,
+    security,
   };
 };
 
@@ -55,6 +89,5 @@ export const parse = async (data) => {
  */
 const parseDomainFromAddress = (emailString) => {
   const regex = /@([^\s<>@]+)$/;
-  const match = emailString.match(regex);
-  return match ? match[1] : null;
+  return emailString?.match(regex)?.[1] ?? null;
 };

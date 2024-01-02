@@ -3,10 +3,6 @@
 
   .Body {
     .Input {
-      div {
-        margin: 1vmax 0 1vmax 0;
-      }
-
       .InputContainer {
         display: flex;
         flex-wrap: wrap;
@@ -23,6 +19,10 @@
           }
         }
 
+        .Radio {
+          margin: 1vmax 0 1vmax 0;
+        }
+
         .FileInput {
           display: flex;
           flex-direction: column;
@@ -35,6 +35,10 @@
           padding: 1vmax 0;
           border: 1px solid transparent;
           cursor: pointer;
+
+          button {
+            margin: .5vmax 0 .5vmax 0;
+          }
 
           input {
             display: none;
@@ -52,6 +56,7 @@
       }
 
       .Button {
+        margin: 1vmax 0 1vmax 0;
         text-align: center;
 
         svg {

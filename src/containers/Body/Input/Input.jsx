@@ -4,7 +4,7 @@ import { FaRegPaste, FaRegFileCode, FaSpinner } from "react-icons/fa6";
 import { Radio, FileInput, TextInput, Button } from "../../../components/input";
 import { parse } from "../../../utils/helpers/parse";
 
-export const Input = ({ setResult }) => {
+export const Input = ({ setResult, scrollToResults }) => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState(null);
   const [selectedRadio, setSelectedRadio] = useState("file");
@@ -19,15 +19,17 @@ export const Input = ({ setResult }) => {
   };
 
   const handleClick = async () => {
-    console.log(selectedRadio);
+    setLoading(true);
+
     const data = getData();
     console.log(data);
 
-    setLoading(true);
     const result = await parse(data);
-    setLoading(false);
     setResult(result);
     console.log(result);
+
+    setLoading(false);
+    scrollToResults();
   };
 
   return (
