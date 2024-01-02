@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# 📧 mail 🕵️‍♂️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Unveil the mysteries of your emails with `mail` – your go-to detective for decoding the safety of every message! 🔐
 
-## Available Scripts
+## Description 📝
 
-In the project directory, you can run:
+"mail" is a static website designed for analyzing email messages to determine their safety. It allows users to upload a `message/rfc822` file or paste mail headers directly.
+The application parses mail data from the email parser ([postal-mime](https://github.com/postalsys/postal-mime)) to provide information about the email, including general details, header information (SPF, DKIM, DMARC), data information (raw text, internal links), and details about mail attachments.
 
-### `npm start`
+## Table of Contents 📑
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [📧 mail 🕵️‍♂️](#-mail-️️)
+  - [Description 📝](#description-)
+  - [Table of Contents 📑](#table-of-contents-)
+  - [Features 🚀](#features-)
+  - [Usage 🕹️](#usage-️)
+  - [Roadmap](#roadmap)
+  - [Deployment 🌐](#deployment-)
+  - [Contributing 🤝](#contributing-)
+  - [Development Setup ⚙️](#development-setup-️)
+  - [License 📜](#license-)
+  - [Feedback 📬](#feedback-)
+  - [Project Status 🚧](#project-status-)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features 🚀
 
-### `npm test`
+- 🔄 **Drag and Drop**: Easily upload message/rfc822 (`.eml`) files for analysis.
+- 📊 **Header Analysis**: Check SPF, DKIM, and DMARC information for domain configuration.
+- 🔍 **Data Inspection**: View raw text, internal links, and general information about the email.
+- 📎 **Attachment Details**: Identify and assess the safety of email attachments.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage 🕹️
 
-### `npm run build`
+- Upload File 📁✨:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - Drag and drop your message/rfc822 file onto the designated area.
+  - Alternatively, paste mail headers directly into the provided text area.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Analysis Results 🧐🎭:
+  - The application parses data with postal-mime and enrich it to display information about the email.
+  - Check the results for general details, header information, data insights, and attachment safety.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Roadmap
 
-### `npm run eject`
+- [ ] Add header for additional settings (Dark mode).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [ ] Add footer for links (GitHub and BuyMeACoffee).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [ ] Display information with colors and icons (info, alert, danger).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [ ] Only show the relevant sections and hide the general information (raw data, body structure for example).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [ ] Enhance data parsing and enhancement.
 
-## Learn More
+- [ ] Add `.msg` file compatibility.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [ ] Add other functionalities around mail (domain check, blacklist check...).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment 🌐
 
-### Code Splitting
+You can access the website at the following URLs:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Mail](https://mail.cybai.re)
+- [Mail - GitHub Pages](https://cletqui.github.io/mail)
+- [Mail - Cloudflare Pages](https://mail-7c7.pages.dev)
 
-### Analyzing the Bundle Size
+[![pages-build-deployment](https://github.com/cletqui/mail/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/cletqui/mail/actions/workflows/pages/pages-build-deployment)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing 🤝
 
-### Making a Progressive Web App
+We welcome contributions! If you'd like to contribute to `mail`, follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make changes and commit them.
+4. Submit a pull request with a clear description of your changes.
 
-### Advanced Configuration
+Please adhere to the Contributing Guidelines for a smooth collaboration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Development Setup ⚙️
 
-### Deployment
+To set up the project locally for development:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Clone the repository.
 
-### `npm run build` fails to minify
+   ```bash
+   git clone https://github.com/cletqui/mail.git
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+2. Go into the project folder.
+
+   ```bash
+   cd mail
+   ```
+
+And that's all it takes to get this simple project and start contributing!
+
+## License 📜
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Feedback 📬
+
+We welcome your feedback! If you encounter any issues or have suggestions for improvement, please open an [issue](https://github.com/cletqui/mail/issues).
+
+## Project Status 🚧
+
+This project is actively maintained and open to contributions.
