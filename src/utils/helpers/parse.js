@@ -10,74 +10,23 @@ export const parse = async (data) => {
 
   console.log(res);
 
-  const {
-    attachments,
-    date,
-    from,
-    headers,
-    html,
-    messageId,
-    subject,
-    text,
-    to,
-  } = res;
-
-  const email = {
-    id: messageId,
-    subject,
-    date,
-    importance: "", // TODO
-    sensitivity: "", // TODO
-  };
-
-  const participants = {
-    from: from && { ...from, domain: parseDomainFromAddress(from.address) },
-    to:
-      to &&
-      to.map((obj) => ({
+  return {
+    ...res,
+    attachments: res.attachments?.map((attachment) => ({
+      ...attachment,
+      size: attachment.content?.byteLength,
+    })),
+    participants: {
+      from: {
+        ...res.from,
+        domain: res.from?.address && parseDomainFromAddress(res.from.address),
+      },
+      to: res.to?.map((obj) => ({
         ...obj,
         domain: parseDomainFromAddress(obj.address),
       })),
-  };
-
-  const content = {
-    html,
-    text,
-    links: [], // TODO
-    attachments:
-      attachments &&
-      attachments.map((attachment) => ({
-        ...attachment,
-        size: attachment?.content?.byteLength,
-        threat: false, // TODO
-      })),
-  };
-
-  const domain = {
-    name: "",
-    IP: { v4: [], v6: [] },
-    MX: [],
-    DMARC: {},
-    SPF: {},
-    DKIM: {},
-  }; // TODO
-
-  const received = { delay: "", relayPath: [] }; // TODO
-
-  const security = {
-    threatLevel: "",
-    maliciousLinks: [],
-    maliciousAttachments: [],
-  }; // TODO
-
-  return {
-    email,
-    participants,
-    content,
-    headers: { list: headers }, // { delivery: {}, spfDkim: {}, list: {} }
-    domain,
-    received,
-    security,
+    },
+    links: parseUrlFromText(res.text),
   };
 };
 
@@ -90,4 +39,10 @@ export const parse = async (data) => {
 const parseDomainFromAddress = (emailString) => {
   const regex = /@([^\s<>@]+)$/;
   return emailString?.match(regex)?.[1] ?? null;
+};
+
+const parseUrlFromText = (textString) => {
+  const regex =
+    /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])/;
+  return textString?.match(regex);
 };

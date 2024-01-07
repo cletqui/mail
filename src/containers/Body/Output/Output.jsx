@@ -1,17 +1,34 @@
 import React from "react";
 
-import { Section } from "../../../components/layout/section/Section";
+import {
+  Section,
+  General,
+  Participants,
+  Content,
+} from "../../../components/layout";
+import { Raw } from "../../../components/layout/raw/Raw";
 
 export const Output = React.forwardRef(({ result }, ref) => {
   return (
     <div className="Output" ref={ref}>
       {result ? (
-        <div>
+        <>
           <h1>Output</h1>
+
+          <General result={result} />
+
+          <Participants result={result} />
+
+          <Content result={result} />
+
           {Object.entries(result).map(([key, value]) => {
-            return <Section key={key} type={key} content={value} />;
+            return (
+              <Section key={key} title={key}>
+                <Raw content={value} />
+              </Section>
+            );
           })}
-        </div>
+        </>
       ) : null}
     </div>
   );

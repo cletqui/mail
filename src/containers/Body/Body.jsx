@@ -8,7 +8,7 @@ export const Body = () => {
   const [result, setResult] = useState(null);
 
   const scrollToResults = () => {
-    outputRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    outputRef?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
