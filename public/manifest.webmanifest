@@ -1,6 +1,9 @@
 {
   "short_name": "Mail",
-  "name": "Mail Analyzer Website",
+  "name": "Mail",
+  "description": "Mail Analyzer Website",
+  "start_url": ".",
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +21,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#333333",
+  "lang": "en"
 }
