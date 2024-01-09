@@ -1,5 +1,5 @@
-import { Section } from "./Section";
-import { List } from "../list/List";
+import { Section } from "../../../components/layout/section/Section";
+import { List } from "../../../components/layout/list/List";
 import { niceBytes } from "../../../utils/helpers/print";
 
 export const Content = ({ result }) => {

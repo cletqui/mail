@@ -1,17 +1,14 @@
 import React from "react";
 
-import {
-  Section,
-  General,
-  Participants,
-  Content,
-} from "../../../components/layout";
-import { Raw } from "../../../components/layout/raw/Raw";
+import { General } from "./General";
+import { Participants } from "./Participants";
+import { Content } from "./Content";
+import { Headers } from "./Headers";
 
 export const Output = React.forwardRef(({ result }, ref) => {
   return (
     <div className="Output" ref={ref}>
-      {result ? (
+      {result && (
         <>
           <h1>Output</h1>
 
@@ -19,17 +16,17 @@ export const Output = React.forwardRef(({ result }, ref) => {
 
           <Participants result={result} />
 
+          <Headers result={result} />
+
           <Content result={result} />
 
-          {Object.entries(result).map(([key, value]) => {
-            return (
-              <Section key={key} title={key}>
-                <Raw content={value} />
-              </Section>
-            );
-          })}
+          {/* {Object.entries(result).map(([key, value]) => (
+            <Section key={key} title={key}>
+              <Raw content={value} />
+            </Section>
+          ))} */}
         </>
-      ) : null}
+      )}
     </div>
   );
 });
