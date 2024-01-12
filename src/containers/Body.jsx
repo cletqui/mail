@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
-import { Input } from "./Input/Input";
-import { Output } from "./Output/Output";
+import { Input } from "./body/Input";
+import { Output } from "./body/Output";
 
 export const Body = () => {
   const outputRef = useRef(null);

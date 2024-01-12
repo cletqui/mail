@@ -1,5 +1,5 @@
-import { Section } from "../../../components/layout/section/Section";
-import { List } from "../../../components/layout/list/List";
+import { Section } from "../../../components/layout/Section";
+import { List } from "../../../components/layout/List";
 
 export const Participants = ({ result }) => {
   const {
@@ -9,13 +9,13 @@ export const Participants = ({ result }) => {
   return (
     <Section title="Participants">
       <h4>From:</h4>
-      <List list={from} />
+      <List key={"from"} listKey={"from"} list={from} />
 
       {to && (
         <>
           <h4>To:</h4>
-          {to.map((value) => (
-            <List list={value} />
+          {to.map((value, index) => (
+            <List key={`to-${index}`} listKey={`to-${index}`} list={value} />
           ))}
         </>
       )}

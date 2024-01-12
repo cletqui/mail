@@ -1,9 +1,9 @@
 import React from "react";
 
-import { General } from "./General";
-import { Participants } from "./Participants";
-import { Content } from "./Content";
-import { Headers } from "./Headers";
+import { General } from "./output/General";
+import { Participants } from "./output/Participants";
+import { Content } from "./output/Content";
+import { Headers } from "./output/Headers";
 
 export const Output = React.forwardRef(({ result }, ref) => {
   return (

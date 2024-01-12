@@ -4,6 +4,7 @@
   text-align: left;
 
   .Body {
+    margin: .5em;
     margin-bottom: 2em;
 
     .Input {
@@ -83,7 +84,7 @@
 
     .Output {
       .Section {
-        margin-left: .69vmax;
+        margin: 0 .5em 0 .5em;
 
         .Title {
           cursor: pointer;
@@ -94,38 +95,54 @@
         }
 
         h4 {
-          margin-left: 0.5em;
+          margin: 0 .5em 0 .5em;
         }
 
-        table {
-          table-layout: auto;
-          width: 100%;
+        .Table {
+          table {
+            table-layout: auto;
+            width: 100%;
+            border-spacing: 0;
+            border-collapse: inherit;
+            border-radius: 10px;
+            border: 1px solid;
+          }
+
+          table thead th {
+            border-bottom: 1px solid;
+          }
+
+          table tbody td:not(:last-child) {
+            border-right: 1px solid;
+          }
+
+          table tbody tr:not(:last-child)>td {
+            border-bottom: 1px solid;
+          }
+
+          table thead th:not(:last-child),
+          table tbody td:not(:last-child) {
+            border-right: 1px solid;
+          }
+
+          th,
+          td {
+            padding: 0 .5em 0 .5em;
+          }
+        }
+
+        .Card {
+          margin: .5em 0 1em 0;
+          padding: .5em;
+          overflow-wrap: break-word;
           border-spacing: 0;
-          border-collapse: separate;
+          border-collapse: inherit;
           border-radius: 10px;
-          border: 1px solid
+          border: 1px solid;
         }
 
-        table thead th {
-          border-bottom: 1px solid;
-        }
-
-        table tbody td:not(:last-child) {
-          border-right: 1px solid;
-        }
-
-        table tbody tr:not(:last-child) > td {
-          border-bottom: 1px solid;
-        }
-
-        table thead th:not(:last-child),
-        table tbody td:not(:last-child) {
-          border-right: 1px solid;
-        }
-
-        th,
-        td {
-          padding: 0 .5em 0 .5em;
+        .List {
+          overflow-wrap: break-word;
         }
       }
 
@@ -145,7 +162,7 @@
     align-items: center;
     position: fixed;
     bottom: 0;
-    width: 98%;
+    width: 100%;
     height: 2em;
     background-image: linear-gradient(to top, rgb(255, 255, 255), 90%, rgba(255, 255, 255, 0));
 

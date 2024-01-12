@@ -1,5 +1,11 @@
 import PostalMime from "postal-mime";
 
+/**
+ * Parses the given data and returns a modified object with additional properties.
+ * @async @function parse
+ * @param {any} data - The data to be parsed.
+ * @returns {Promise<Object|null>} - A Promise that resolves to the modified object or null if the data is null.
+ */
 export const parse = async (data) => {
   if (!data) {
     return null;
@@ -19,7 +25,7 @@ export const parse = async (data) => {
     participants: {
       from: {
         ...res.from,
-        domain: res.from?.address && parseDomainFromAddress(res.from.address),
+        domain: parseDomainFromAddress(res.from?.address),
       },
       to: res.to?.map((obj) => ({
         ...obj,
@@ -32,7 +38,7 @@ export const parse = async (data) => {
 
 /**
  * Extracts the domain from an email address string.
- * @function @name parseDomainFromAddress
+ * @function parseDomainFromAddress
  * @param {string} emailString - The email address string from which to extract the domain.
  * @returns {string|null} - The extracted domain or null if no match is found.
  */
@@ -41,8 +47,15 @@ const parseDomainFromAddress = (emailString) => {
   return emailString?.match(regex)?.[1] ?? null;
 };
 
+/**
+ * Extracts the list of URLs from a given text string.
+ * @function  parseUrlFromText
+ * @param {string} textString - The text string to parse URLs from.
+ * @returns {string[]} - An array of URLs found in the text string.
+ * @todo sanitize URI from invalid characters given context (like > for example) // TODO
+ */
 const parseUrlFromText = (textString) => {
-  const regex =
-    /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])/;
-  return textString?.match(regex);
+  const decodedURITextString = decodeURIComponent(textString);
+  const regex = /(https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*/gi;
+  return decodedURITextString.match(regex) || [];
 };

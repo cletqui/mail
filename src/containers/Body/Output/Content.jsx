@@ -1,5 +1,7 @@
-import { Section } from "../../../components/layout/section/Section";
-import { List } from "../../../components/layout/list/List";
+import { Section } from "../../../components/layout/Section";
+import { List } from "../../../components/layout/List";
+import { Card } from "../../../components/layout/Card";
+
 import { niceBytes } from "../../../utils/helpers/print";
 
 export const Content = ({ result }) => {
@@ -10,35 +12,46 @@ export const Content = ({ result }) => {
       {text && (
         <>
           <h4>{"Text:"}</h4>
-          {text}
+
+          <Card>{text}</Card>
         </>
       )}
 
       {html && (
         <>
           <h4>{"HTML:"}</h4>
-          {html}
+
+          <Card>{html}</Card>
         </>
       )}
 
-      {links && (
+      {links?.length > 0 && (
         <>
           <h4>{"Links:"}</h4>
+
+          <List key={"links"} listKey={"links"} list={links} />
         </>
       )}
 
       {attachments?.length > 0 && (
         <>
           <h4>{"Attachments:"}</h4>
-          {attachments.map((attachment) => {
-            const list = { ...attachment, size: niceBytes(attachment.size) };
-            return (
-              <>
-                {attachment.filename}
-                <List list={list} />
-              </>
-            );
-          })}
+
+          <Card>
+            {attachments.map((attachment, index) => {
+              const list = { ...attachment, size: niceBytes(attachment.size) };
+              return (
+                <div>
+                  <em>{attachment.filename}</em>
+                  <List
+                    key={`attachment-${index}`}
+                    listKey={`attachment-${index}`}
+                    list={list}
+                  />
+                </div>
+              );
+            })}
+          </Card>
         </>
       )}
     </Section>

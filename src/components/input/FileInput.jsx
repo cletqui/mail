@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback } from "react";
 import { FaFileImport } from "react-icons/fa6";
 
-import { niceBytes } from "../../../utils/helpers/print";
-import { validateInputFile } from "../../../utils/helpers/validate";
+import { niceBytes } from "../../utils/helpers/print";
+import { validateInputFile } from "../../utils/helpers/validate";
 
 export const FileInput = ({ file, setFile, setSelectedRadio }) => {
   const inputRef = useRef(null);

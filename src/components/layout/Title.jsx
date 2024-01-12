@@ -1,6 +1,6 @@
 import { FaAngleDown } from "react-icons/fa6";
 
-import { capitalize } from "../../../utils/helpers/capitalize";
+import { capitalize } from "../../utils/helpers/capitalize";
 
 export const Title = ({ title, onClick }) => {
   return (

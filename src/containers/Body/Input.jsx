@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { FaRegPaste, FaRegFileCode, FaSpinner } from "react-icons/fa6";
+import { FaRegPaste, FaSpinner } from "react-icons/fa6";
+import { MdOutlineUploadFile } from "react-icons/md";
 
-import { Radio, FileInput, TextInput, Button } from "../../../components/input";
-import { parse } from "../../../utils/helpers/parse";
+import { Button } from "../../components/input/Button";
+import { FileInput } from "../../components/input/FileInput";
+import { Radio } from "../../components/input/Radio";
+import { TextInput } from "../../components/input/TextInput";
+import { parse } from "../../utils/helpers/parse";
 
 export const Input = ({ setResult, scrollToResults }) => {
   const [file, setFile] = useState(null);
@@ -40,7 +44,7 @@ export const Input = ({ setResult, scrollToResults }) => {
         <div className="InputContent">
           <Radio
             id="file"
-            Icon={FaRegFileCode}
+            Icon={MdOutlineUploadFile}
             message="Select File"
             handleChange={handleChange}
             checked={selectedRadio === "file"}

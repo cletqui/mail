@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Title } from "../title/Title";
+import { Title } from "./Title";
 
 export const Section = ({ children, title }) => {
   const [isCollapsed, setCollapsed] = useState(false);
