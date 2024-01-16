@@ -52,10 +52,12 @@ const parseDomainFromAddress = (emailString) => {
  * @function  parseUrlFromText
  * @param {string} textString - The text string to parse URLs from.
  * @returns {string[]} - An array of URLs found in the text string.
- * @todo sanitize URI from invalid characters given context (like > for example) // TODO
  */
 const parseUrlFromText = (textString) => {
   const decodedURITextString = decodeURIComponent(textString);
-  const regex = /(https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*/gi;
-  return decodedURITextString.match(regex) || [];
+  const regex =
+    /(?:<\s*)((https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*)(?=\s*>)/gi;
+  return (decodedURITextString.match(regex) || []).map((url) =>
+    url.replace(/<\s*/, "")
+  );
 };
