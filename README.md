@@ -1,6 +1,6 @@
 # 📧 mail 🕵️‍♂️
 
-Unveil the mysteries of your emails with `mail` – your go-to detective for decoding the safety of every message! 🔐
+Unveil the mysteries of your emails with "mail", your go-to detective for decoding the safety of every message! 🔐
 
 ## Description 📝
 
@@ -14,7 +14,7 @@ The application parses mail data from the email parser ([postal-mime](https://gi
   - [Table of Contents 📑](#table-of-contents-)
   - [Features 🚀](#features-)
   - [Usage 🕹️](#usage-️)
-  - [Roadmap](#roadmap)
+  - [Roadmap 🗺️](#roadmap-️)
   - [Deployment 🌐](#deployment-)
   - [Contributing 🤝](#contributing-)
   - [Development Setup ⚙️](#development-setup-️)
@@ -24,8 +24,8 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 ## Features 🚀
 
-- 🔄 **Drag and Drop**: Easily upload message/rfc822 (`.eml`) files for analysis.
-- 📊 **Header Analysis**: Check SPF, DKIM, and DMARC information for domain configuration.
+- 🔄 **Drag and Drop**: Easily upload `message/rfc822` (`.eml`) files for analysis.
+- 📊 **Header Analysis**: Check SPF, DKIM, and DMARC information for domain configuration. (TODO)
 - 🔍 **Data Inspection**: View raw text, internal links, and general information about the email.
 - 📎 **Attachment Details**: Identify and assess the safety of email attachments.
 
@@ -33,18 +33,22 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 - Upload File 📁✨:
 
-  - Drag and drop your message/rfc822 file onto the designated area.
+  - Drag and drop your `message/rfc822` file onto the designated area.
   - Alternatively, paste mail headers directly into the provided text area.
 
 - Analysis Results 🧐🎭:
   - The application parses data with postal-mime and enrich it to display information about the email.
   - Check the results for general details, header information, data insights, and attachment safety.
 
-## Roadmap
+## Roadmap 🗺️
+
+- [ ] Add domain analysis feature.
+
+- [ ] Add link abuse score ([URLhaus](https://urlhaus.abuse.ch/api/), [PhishTank](https://www.phishtank.com/index.php) or [botvrij.eu](https://botvrij.eu/))
+
+- [ ] Add attachment file analysis (e.g. extract inside links).
 
 - [ ] Add header for additional settings (Dark mode).
-
-- [ ] Add footer for links (GitHub and BuyMeACoffee).
 
 - [ ] Display information with colors and icons (info, alert, danger).
 
@@ -55,6 +59,8 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 - [ ] Add `.msg` file compatibility.
 
 - [ ] Add other functionalities around mail (domain check, blacklist check...).
+
+- [x] Add footer for links (GitHub and BuyMeACoffee).
 
 ## Deployment 🌐
 
