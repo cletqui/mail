@@ -39,7 +39,11 @@ export const Content = ({ result }) => {
 
           <Card>
             {attachments.map((attachment, index) => {
-              const list = { ...attachment, size: niceBytes(attachment.size) };
+              const list = {
+                ...attachment,
+                size: niceBytes(attachment.size),
+                verdict: undefined,
+              };
               return (
                 <div>
                   <em>{attachment.filename}</em>
