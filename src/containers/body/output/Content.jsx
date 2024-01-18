@@ -42,11 +42,12 @@ export const Content = ({ result }) => {
               const list = {
                 ...attachment,
                 size: niceBytes(attachment.size),
-                verdict: undefined,
+                verdict: "undefined", // TODO
               };
               return (
                 <div>
-                  <em>{attachment.filename}</em>
+                  <em>{attachment.filename || index}</em>
+                  
                   <List
                     key={`attachment-${index}`}
                     listKey={`attachment-${index}`}

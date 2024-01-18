@@ -2,7 +2,7 @@ import { capitalize } from "../../utils/helpers/capitalize";
 
 export const List = ({ listKey, list }) => {
   const isValid = (string) => {
-    return string && string.length > 0;
+    return string || (typeof string === "string" && string.length > 0);
   };
 
   return (
