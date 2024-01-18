@@ -32,7 +32,7 @@ export const parse = async (data) => {
         domain: parseDomainFromAddress(obj.address),
       })),
     },
-    links: parseUrlFromText(res.text),
+    links: parseUrlFromText(res.text), // TODO extract URL from HTML (if text is undefined)
   };
 };
 
@@ -63,7 +63,7 @@ const parseUrlFromText = (textString) => {
 };
 
 export const parseReceivedHeader = (headers) => {
-  const received = extractHeader(headers, "received");
+  const received = extractHeader(headers, ["received", "x-received"]);
   return processReceivedHeader(received);
 };
 
@@ -74,8 +74,8 @@ export const parseReceivedHeader = (headers) => {
  * @param {string} key - The key to filter the headers by.
  * @returns {Array} - An array of headers matching the specified key.
  */
-const extractHeader = (headers, key) => {
-  return headers.filter((header) => header["key"] === key);
+const extractHeader = (headers, keys) => {
+  return headers.filter((header) => keys.includes(header["key"]));
 };
 
 const processReceivedHeader = (received) => {
@@ -87,7 +87,7 @@ const processReceivedHeader = (received) => {
     const hop = index + 1;
 
     let delay, from, by, protocol, time;
-    const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?);\s(.*?$)/;
+    const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?)\s*;\s*(.*?$)/; // TODO fix parsing when fields are missing
     const match = value.match(regex);
     if (match) {
       [, from, by, protocol, time] = match;
