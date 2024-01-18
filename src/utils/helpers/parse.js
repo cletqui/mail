@@ -49,15 +49,58 @@ const parseDomainFromAddress = (emailString) => {
 
 /**
  * Extracts the list of URLs from a given text string.
- * @function  parseUrlFromText
+ * @function parseUrlFromText
  * @param {string} textString - The text string to parse URLs from.
  * @returns {string[]} - An array of URLs found in the text string.
  */
 const parseUrlFromText = (textString) => {
   const decodedURITextString = decodeURIComponent(textString);
   const regex =
-    /(?:<\s*)((https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*)(?=\s*>)/gi;
+    /(?:<\s*)((https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*)(?=\s*>)/gi; // TODO extract URL inside URL
   return (decodedURITextString.match(regex) || []).map((url) =>
     url.replace(/<\s*/, "")
   );
+};
+
+export const parseReceivedHeader = (headers) => {
+  const received = extractHeader(headers, "received");
+  return processReceivedHeader(received);
+};
+
+/**
+ * Extracts headers from an array based on a specified key.
+ * @function extractHeader
+ * @param {Array} headers - The array of headers to extract from.
+ * @param {string} key - The key to filter the headers by.
+ * @returns {Array} - An array of headers matching the specified key.
+ */
+const extractHeader = (headers, key) => {
+  return headers.filter((header) => header["key"] === key);
+};
+
+const processReceivedHeader = (received) => {
+  let previousTime;
+
+  return received.reverse().map((obj, index) => {
+    const { value } = obj;
+
+    const hop = index + 1;
+
+    let delay, from, by, protocol, time;
+    const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?);\s(.*?$)/;
+    const match = value.match(regex);
+    if (match) {
+      [, from, by, protocol, time] = match;
+    }
+
+    if (index === 0) {
+      delay = "*";
+    } else {
+      delay = `${(new Date(time) - new Date(previousTime)) / 1000}s`;
+    }
+    previousTime = time;
+
+    const blacklist = "none"; // TODO
+    return { hop, delay, from, by, with: protocol, time, blacklist };
+  });
 };
