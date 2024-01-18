@@ -42,7 +42,9 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 ## Roadmap 🗺️
 
-- [ ] Add domain analysis feature.
+- [ ] Add blacklist check in `received` ([MX blacklist](https://mxtoolbox.com/problem/blacklist/)).
+
+- [ ] Add domain analysis feature ([MX domain blacklist](https://mxtoolbox.com/problem/rhsbl)).
 
 - [ ] Add link abuse score ([URLhaus](https://urlhaus.abuse.ch/api/), [PhishTank](https://www.phishtank.com/index.php) or [botvrij.eu](https://botvrij.eu/))
 
@@ -57,8 +59,6 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 - [ ] Enhance data parsing and enhancement.
 
 - [ ] Add `.msg` file compatibility.
-
-- [ ] Add other functionalities around mail (domain check, blacklist check...).
 
 - [x] Add footer for links (GitHub and BuyMeACoffee).
 
