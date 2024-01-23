@@ -62,6 +62,8 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 - [x] Add footer for links (GitHub and BuyMeACoffee).
 
+- [x] Add link extraction from mail content.
+
 ## Deployment 🌐
 
 You can access the website at the following URLs:
