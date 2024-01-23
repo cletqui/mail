@@ -1,6 +1,7 @@
 import { Section } from "../../../components/layout/Section";
 import { List } from "../../../components/layout/List";
 import { Card } from "../../../components/layout/Card";
+import { Table } from "../../../components/layout/Table";
 
 import { niceBytes } from "../../../utils/helpers/print";
 
@@ -29,7 +30,7 @@ export const Content = ({ result }) => {
         <>
           <h4>{"Links:"}</h4>
 
-          <List key={"links"} listKey={"links"} list={links} />
+          <Table list={links} />
         </>
       )}
 
@@ -47,7 +48,7 @@ export const Content = ({ result }) => {
               return (
                 <div>
                   <em>{attachment.filename || index}</em>
-                  
+
                   <List
                     key={`attachment-${index}`}
                     listKey={`attachment-${index}`}

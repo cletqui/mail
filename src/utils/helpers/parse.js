@@ -1,4 +1,5 @@
 import PostalMime from "postal-mime";
+import Pattern from "url-knife";
 
 /**
  * Parses the given data and returns a modified object with additional properties.
@@ -13,8 +14,6 @@ export const parse = async (data) => {
 
   const parser = new PostalMime();
   const res = await parser.parse(data);
-
-  console.log(res);
 
   return {
     ...res,
@@ -32,7 +31,7 @@ export const parse = async (data) => {
         domain: parseDomainFromAddress(obj.address),
       })),
     },
-    links: parseUrlFromText(res.text), // TODO extract URL from HTML (if text is undefined)
+    links: parseUrlFromText(res.text || res.html), // TODO extract URL from HTML (if text is undefined)
   };
 };
 
@@ -47,19 +46,52 @@ const parseDomainFromAddress = (emailString) => {
   return emailString?.match(regex)?.[1] ?? null;
 };
 
-/**
- * Extracts the list of URLs from a given text string.
- * @function parseUrlFromText
- * @param {string} textString - The text string to parse URLs from.
- * @returns {string[]} - An array of URLs found in the text string.
- */
 const parseUrlFromText = (textString) => {
-  const decodedURITextString = decodeURIComponent(textString);
-  const regex =
-    /(?:<\s*)((https?|ftp):\/\/[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*)(?=\s*>)/gi; // TODO extract URL inside URL
-  return (decodedURITextString.match(regex) || []).map((url) =>
-    url.replace(/<\s*/, "")
-  );
+  const urls = extractUrlFromText(textString);
+  const nestedUrls = urls.flatMap((url) => processUrl(url));
+
+  return nestedUrls.map((url) => {
+    return { ...url, verdict: "undefined" };
+  });
+};
+
+/**
+ * Extracts URLs from the given text string (only if protocol is specified).
+ * @function extractUrlFromText
+ * @param {string} textString - The text string to extract URLs from.
+ * @returns {Array<any>} An array of extracted URLs.
+ */
+const extractUrlFromText = (textString) => {
+  if (!textString) {
+    return null;
+  }
+
+  const urls = Pattern.TextArea.extractAllUrls(textString, {
+    ip_v4: true,
+    ip_v6: true,
+    localhost: true,
+    intranet: true,
+  });
+  return urls.filter((url) => url.value.protocol !== null);
+};
+
+const createUrlObject = (urlData, nested = "false") => ({
+  url: urlData.url,
+  protocol: urlData.protocol,
+  domain: urlData.onlyDomain,
+  nested,
+});
+
+const processUrl = (obj) => {
+  const { onlyParamsJsn = {} } = obj.value || {};
+  const result = [createUrlObject(obj.value)];
+
+  const nestedUrl = extractUrlFromText(onlyParamsJsn.url)?.[0]?.value;
+  if (nestedUrl) {
+    result.push(createUrlObject(nestedUrl, true));
+  }
+
+  return result;
 };
 
 export const parseReceivedHeader = (headers) => {

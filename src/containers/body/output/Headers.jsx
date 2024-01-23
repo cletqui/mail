@@ -8,14 +8,14 @@ export const Headers = ({ result }) => {
 
   return (
     <Section title={"Headers"}>
-      {received ? (
+      {received?.length > 0 ? (
         <>
           <h4>Received:</h4>
           <Table list={received} />
         </>
       ) : null}
 
-      {headers ? (
+      {headers?.length > 0 ? (
         <>
           <h4>List:</h4>
           <Table list={headers} />
