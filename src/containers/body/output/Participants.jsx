@@ -1,3 +1,5 @@
+import { FaUsers } from "react-icons/fa6";
+
 import { Section } from "../../../components/layout/Section";
 import { List } from "../../../components/layout/List";
 
@@ -7,7 +9,7 @@ export const Participants = ({ result }) => {
   } = result;
 
   return (
-    <Section title="Participants">
+    <Section title="Participants" icon={<FaUsers />}>
       <h4>From:</h4>
       <List key={"from"} listKey={"from"} list={from} />
 

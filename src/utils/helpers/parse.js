@@ -86,7 +86,7 @@ const processUrl = (obj) => {
   const { onlyParamsJsn = {} } = obj.value || {};
   const result = [createUrlObject(obj.value)];
 
-  const nestedUrl = extractUrlFromText(onlyParamsJsn.url)?.[0]?.value;
+  const nestedUrl = extractUrlFromText(onlyParamsJsn?.url)?.[0]?.value;
   if (nestedUrl) {
     result.push(createUrlObject(nestedUrl, true));
   }
@@ -113,26 +113,47 @@ const extractHeader = (headers, keys) => {
 const processReceivedHeader = (received) => {
   let previousTime;
 
-  return received.reverse().map((obj, index) => {
-    const { value } = obj;
+  /**
+   * Sorts objects `a` and `b` based on their `time` property.
+   * @function sortByTime
+   * @param {object} a - The first object to compare.
+   * @param {object} b - The second object to compare.
+   * @returns {number} The difference in milliseconds between the `time` property of `a` and `b`.
+   */
+  const sortByTime = (a, b) => {
+    const dateA = new Date(a?.time);
+    const dateB = new Date(b?.time);
+    return dateA - dateB;
+  };
 
-    const hop = index + 1;
+  return received
+    .map((obj) => {
+      const { value } = obj;
 
-    let delay, from, by, protocol, time;
-    const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?)\s*;\s*(.*?$)/; // TODO fix parsing when fields are missing
-    const match = value.match(regex);
-    if (match) {
-      [, from, by, protocol, time] = match;
-    }
+      let from, by, protocol, time;
+      const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?)\s*;\s*(.*?$)/; // TODO fix parsing when fields are missing
+      const match = value.match(regex);
+      if (match) {
+        [, from, by, protocol, time] = match;
+      }
 
-    if (index === 0) {
-      delay = "*";
-    } else {
-      delay = `${(new Date(time) - new Date(previousTime)) / 1000}s`;
-    }
-    previousTime = time;
+      const blacklist = "none"; // TODO
+      return { from, by, with: protocol, time, blacklist };
+    })
+    .sort(sortByTime)
+    .flatMap((obj, index) => {
+      const { time } = obj; // TODO deal with entries where time is not defined
 
-    const blacklist = "none"; // TODO
-    return { hop, delay, from, by, with: protocol, time, blacklist };
-  });
+      const hop = index + 1;
+
+      let delay;
+      if (index === 0) {
+        delay = "*";
+      } else {
+        delay = `${(new Date(time) - new Date(previousTime)) / 1000}s`;
+      }
+      previousTime = time;
+
+      return { hop, delay, ...obj };
+    });
 };

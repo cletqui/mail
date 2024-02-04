@@ -130,6 +130,7 @@
           th,
           td {
             padding: 0 .5em 0 .5em;
+            /* TODO implement ellipses and click on td to expand the content */
           }
         }
 
@@ -149,8 +150,7 @@
       }
 
       .Section.collapsed {
-
-        .Title svg {
+        .Title .collapse {
           transform: scale(-1, -1);
           transition: transform .1s ease-in-out;
         }

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Title } from "./Title";
 
-export const Section = ({ children, title }) => {
+export const Section = ({ children, title, icon }) => {
   const [isCollapsed, setCollapsed] = useState(false);
 
   const toggleVisible = () => {
@@ -11,7 +11,7 @@ export const Section = ({ children, title }) => {
 
   return (
     <div className={`Section${isCollapsed ? " collapsed" : ""}`}>
-      <Title title={title} onClick={toggleVisible} />
+      <Title title={title} icon={icon} onClick={toggleVisible} />
       {isCollapsed ? null : children}
     </div>
   );

@@ -1,3 +1,5 @@
+import { FaFileLines } from "react-icons/fa6";
+
 import { Section } from "../../../components/layout/Section";
 import { List } from "../../../components/layout/List";
 import { Card } from "../../../components/layout/Card";
@@ -9,7 +11,7 @@ export const Content = ({ result }) => {
   const { text, html, attachments, links } = result;
 
   return (
-    <Section title={"Content"}>
+    <Section title={"Content"} icon={<FaFileLines />}>
       {text && (
         <>
           <h4>{"Text:"}</h4>
