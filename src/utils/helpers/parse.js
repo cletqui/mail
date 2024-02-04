@@ -95,7 +95,7 @@ const processUrl = (obj) => {
 };
 
 export const parseReceivedHeader = (headers) => {
-  const received = extractHeader(headers, ["received", "x-received"]);
+  const received = extractHeader(headers, ["received"]); // add "x-received" to include more received headers
   return processReceivedHeader(received);
 };
 
@@ -131,15 +131,33 @@ const processReceivedHeader = (received) => {
       const { value } = obj;
 
       let from, by, protocol, time;
-      const regex = /from\s(.*?)\sby\s(.*?)\swith\s(.*?)\s*;\s*(.*?$)/; // TODO fix parsing when fields are missing
+      const regex =
+        /from\s(.*?)\s*by\s(.*?)\s*with\s(.*?)\s*;\s*(.*?$)|by\s(.*?)\swith\s(.*?)\s*;\s*(.*?$)|from\s(.*?)\s*;\s*(.*?$)|by\s(.*?)\s*;\s*(.*?$)/;
       const match = value.match(regex);
+
       if (match) {
-        [, from, by, protocol, time] = match;
+        from = match[1] || match[9] || null;
+        by = match[2] || match[5] || match[11] || null;
+        protocol = match[3] || match[6] || null;
+        time = match[4] || match[7] || match[12] || null;
       }
+
+      console.log(
+        match,
+        "\nBY",
+        by,
+        "\nFROM",
+        from,
+        "\nPROTOCOL",
+        protocol,
+        "\nTIME",
+        time
+      );
 
       const blacklist = "none"; // TODO
       return { from, by, with: protocol, time, blacklist };
     })
+    .reverse()
     .sort(sortByTime)
     .flatMap((obj, index) => {
       const { time } = obj; // TODO deal with entries where time is not defined
