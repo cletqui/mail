@@ -72,7 +72,12 @@ const extractUrlFromText = (textString) => {
     localhost: true,
     intranet: true,
   });
-  return urls.filter((url) => url.value.protocol !== null);
+
+  return urls
+    .filter((url) => url.value.protocol !== null)
+    .filter((url, index) => {
+      return index === urls.findIndex((o) => url.value.url === o.value.url);
+    }); // TODO fix duplicates error
 };
 
 const createUrlObject = (urlData, nested = "false") => ({
@@ -141,18 +146,6 @@ const processReceivedHeader = (received) => {
         protocol = match[3] || match[6] || null;
         time = match[4] || match[7] || match[12] || null;
       }
-
-      console.log(
-        match,
-        "\nBY",
-        by,
-        "\nFROM",
-        from,
-        "\nPROTOCOL",
-        protocol,
-        "\nTIME",
-        time
-      );
 
       const blacklist = "none"; // TODO
       return { from, by, with: protocol, time, blacklist };
