@@ -83,7 +83,7 @@ const createUrlObject = (urlData, nested = "false") => ({
 });
 
 const processUrl = (obj) => {
-  const { onlyParamsJsn = {} } = obj.value || {};
+  const { onlyParamsJsn } = obj.value || {};
   const result = [createUrlObject(obj.value)];
 
   const nestedUrl = extractUrlFromText(onlyParamsJsn?.url)?.[0]?.value;
