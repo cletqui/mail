@@ -64,6 +64,8 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 - [x] Add link extraction from mail content.
 
+- [ ] INtegrate [EmailRep](https://blog.sublimesecurity.com/emailrep-query-and-report) API.
+
 ## Deployment 🌐
 
 You can access the website at the following URLs:
