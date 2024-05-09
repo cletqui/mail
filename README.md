@@ -64,14 +64,13 @@ The application parses mail data from the email parser ([postal-mime](https://gi
 
 - [x] Add link extraction from mail content.
 
-- [ ] INtegrate [EmailRep](https://blog.sublimesecurity.com/emailrep-query-and-report) API.
+- [ ] Integrate [EmailRep](https://blog.sublimesecurity.com/emailrep-query-and-report) API.
 
 ## Deployment 🌐
 
 You can access the website at the following URLs:
 
 - [Mail](https://mail.cybai.re)
-- [Mail - GitHub Pages](https://cletqui.github.io/mail)
 - [Mail - Cloudflare Pages](https://mail-7c7.pages.dev)
 
 [![pages-build-deployment](https://github.com/cletqui/mail/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/cletqui/mail/actions/workflows/pages/pages-build-deployment)
