@@ -1,6 +1,26 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #1a1a1a;
+}
+
+[data-theme="dark"] {
+  --background-color: #1a1a1a;
+  --text-color: #f0f0f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background-color: #1a1a1a;
+    --text-color: #f0f0f0;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.2s, color 0.2s;
 }
 
 html {

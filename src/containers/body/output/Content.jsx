@@ -42,17 +42,17 @@ export const Content = ({ result }) => {
 
           <Card>
             {attachments.map((attachment, index) => {
+              const { content: _content, ...rest } = attachment;
               const list = {
-                ...attachment,
+                ...rest,
                 size: niceBytes(attachment.size),
                 verdict: "undefined", // TODO
               };
               return (
-                <div>
+                <div key={`attachment-${index}`}>
                   <em>{attachment.filename || index}</em>
 
                   <List
-                    key={`attachment-${index}`}
                     listKey={`attachment-${index}`}
                     list={list}
                   />
