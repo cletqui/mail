@@ -1,5 +1,5 @@
 import PostalMime from "postal-mime";
-import Pattern from "url-knife";
+import {TextArea} from 'url-knife/dist/entry';
 
 /**
  * Parses the given data and returns a modified object with additional properties.
@@ -63,10 +63,10 @@ const parseUrlFromText = (textString) => {
  */
 const extractUrlFromText = (textString) => {
   if (!textString) {
-    return null;
+    return [];
   }
 
-  const urls = Pattern.TextArea.extractAllUrls(textString, {
+  const urls = TextArea.extractAllUrls(textString, {
     ip_v4: true,
     ip_v6: true,
     localhost: true,

@@ -1,7 +1,25 @@
-// TODO Implement dark/light themes
-
 .App {
   text-align: left;
+
+  .Header {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+
+    .ThemeToggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-color);
+      font-size: 1.2em;
+      padding: .25em;
+      line-height: 0;
+
+      &:hover {
+        opacity: 50%;
+      }
+    }
+  }
 
   .Body {
     margin: .5em;
